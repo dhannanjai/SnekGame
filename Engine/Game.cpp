@@ -29,7 +29,8 @@ Game::Game( MainWindow& wnd )
 	brd(gfx),
 	rng(rd()),
 	snek({ 1,1 }),
-	goal(rng,brd,snek)
+	goal(rng,brd,snek),
+	obstacle(rng,brd,snek)
 {
 }
 
@@ -66,6 +67,8 @@ void Game::UpdateModel()
 				delta_loc = { 0,1 };
 		}
 		rate++;
+		oRate++;
+
 		if (rate >= snekMovePeriod)
 		{
 			rate = 0;
@@ -85,6 +88,11 @@ void Game::UpdateModel()
 					goal.Respawn(rng, brd, snek);
 			}
 		}
+		if (oRate >= obstacleGenerationPeriod)
+		{
+			oRate=0;
+			obstacle.Increase(rng, brd, snek);
+		}
 	}
 }
 
@@ -93,6 +101,7 @@ void Game::ComposeFrame()
 	brd.DrawBoundary();
 	snek.Draw(brd);
 	goal.Draw(brd);
+	obstacle.Draw(brd);
 	if (gameIsOver == true)
 		SpriteCodex::DrawGameOver(Board::boundaryOffset.x + Board::gridWidth / 2 * Board::gridDimension,
 			Board::boundaryOffset.y + Board::gridHeight / 2 * Board::gridDimension, gfx);

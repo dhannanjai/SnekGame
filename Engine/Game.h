@@ -23,6 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include"Goal.h"
+#include"Obstacles.h"
 #include<random>
 
 class Game
@@ -52,5 +53,8 @@ private:
 	Location delta_loc = { 1,0 };
 	bool gameIsOver = false;
 	Goal goal;
+	Obstacles obstacle;
+	static constexpr int obstacleGenerationPeriod = 500;
+	int oRate = 0;
 	/********************************/
 };
