@@ -70,10 +70,8 @@ void Game::UpdateModel()
 		{
 			rate = 0;
 			Location next = snek.GetNextHeadLocation(delta_loc);
-			bool p = brd.IsInsideBoard(next);
-			bool q = snek.IsInTileExceptEnd(next);
 
-			if (!p || q) 
+			if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next))
 				gameIsOver = true;
 			else
 			{
