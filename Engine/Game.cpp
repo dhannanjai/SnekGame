@@ -28,7 +28,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	brd(gfx),
 	rng(rd()),
-	snek({ 2,2 }),
+	snek({ 1,1 }),
 	goal(rng,brd,snek)
 {
 }
@@ -70,20 +70,21 @@ void Game::UpdateModel()
 		{
 			rate = 0;
 			Location next = snek.GetNextHeadLocation(delta_loc);
-			if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next) == true ) 
+			bool p = brd.IsInsideBoard(next);
+			bool q = snek.IsInTileExceptEnd(next);
+
+			if (!p || q) 
 				gameIsOver = true;
 			else
 			{
 				bool eating = (next == goal.GetLocation());
 				if (eating)
-				{
 					snek.Grow();
-				}
+				
 				snek.MoveBy(delta_loc);
+				
 				if (eating)
-				{
 					goal.Respawn(rng, brd, snek);
-				}
 			}
 		}
 	}
@@ -91,8 +92,10 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	brd.DrawBoundary();
 	snek.Draw(brd);
 	goal.Draw(brd);
 	if (gameIsOver == true)
-		SpriteCodex::DrawGameOver(200,200,gfx);	
+		SpriteCodex::DrawGameOver(Board::boundaryOffset.x + Board::gridWidth / 2 * Board::gridDimension,
+			Board::boundaryOffset.y + Board::gridHeight / 2 * Board::gridDimension, gfx);
 }
