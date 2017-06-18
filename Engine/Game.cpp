@@ -66,6 +66,7 @@ void Game::UpdateModel()
 			if (delta_loc != Location{ 0,-1 })
 				delta_loc = { 0,1 };
 		}
+		
 		rate++;
 		oRate++;
 
@@ -93,6 +94,9 @@ void Game::UpdateModel()
 			oRate=0;
 			obstacle.Increase(rng, brd, snek);
 		}
+
+		if (obstacle.Check(snek) == true)
+			gameIsOver = true;
 	}
 }
 

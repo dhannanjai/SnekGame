@@ -20,6 +20,18 @@ void Obstacles::Draw(Board & brd) const
 		rocks[i].Draw(brd);
 }
 
+bool Obstacles::Check(const Snake & snek) const
+{
+	bool answer = false;
+	for (int i = 0; i < nRocks; i++)
+	{
+		answer = snek.IsInTile(rocks[i].GetLocation());
+		if (answer == true)
+			return true;
+	}
+	return false;
+}
+
 /*///////// /////              Rocks                  ////////////////*/
 void Obstacles::Rock::Create(std::mt19937 & rng, const Board & brd, const Snake & snek)
 {
