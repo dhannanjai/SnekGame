@@ -29,8 +29,8 @@ void Board::DrawCell(const Location & loc, const Color c)
 	assert(loc.y >= 0);
 	assert(loc.y <= gridHeight*gridDimension);
 
-	gfx.DrawRectDim(boundaryOffset.x + loc.x*gridDimension,
-		boundaryOffset.y + loc.y*gridDimension, gridDimension, gridDimension, c);
+	gfx.DrawRectDim(boundaryOffset.x + loc.x*gridDimension + 4,
+		boundaryOffset.y + loc.y*gridDimension + 4, gridDimension - 4, gridDimension - 4, c);
 }
 
 int Board::GetGridHeight() const

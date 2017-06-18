@@ -1,7 +1,6 @@
 #pragma once
 
 #include"Snake.h"
-#include<random>
 
 class Goal
 {

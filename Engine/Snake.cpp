@@ -1,6 +1,6 @@
 #include "Snake.h"
 
-Snake::Snake(const Location & loc)
+Snake::Snake(const Location & loc )
 {
 	segments[0].InitHead(loc);
 }
@@ -45,15 +45,20 @@ bool Snake::IsInTile(const Location & loc) const
 	return false;
 }
 
+
+
+/*///////////   Snake Segment ///////////////*/
+
 void Snake::Segment::InitHead(const Location & loc)
 {
-	this->loc = loc; 
+	this->loc = loc;
 	c = Snake::headColor;
 }
 
 void Snake::Segment::initBody()
 {
-	c = Snake::bodyColor;
+	std::uniform_int_distribution<unsigned int> shade(0, 255);
+	c = Color(0,255,0);
 }
 
 const Location Snake::Segment::GetLocation()const
@@ -79,7 +84,7 @@ void Snake::Segment::MoveBy(const Location & delta_loc)
 	loc.Add(delta_loc);
 }
 
-void Snake::Segment::Draw(Board & brd) const
+void Snake::Segment::Draw(Board & brd ) const
 {
 	brd.DrawCell(loc, c);
 }

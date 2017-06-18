@@ -2,6 +2,7 @@
 #include"Location.h"
 #include"Graphics.h"
 #include<assert.h>
+#include<random>
 
 class Board
 {
